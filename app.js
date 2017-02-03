@@ -27,10 +27,12 @@ $('#js-shopping-list-form').submit(function(event) {
 
 //console.log(state);
 
-$( 'div' ).on( "click", '.shopping-item-toggle', function( event ) {
-  console.log($( event.target ).closest( "li" ));
-  //$( event.currentTarget ).closest( "span" ).toggleClass( ".shopping-item__checked" );
+$( '.shopping-item-toggle' ).on( "click",  function( event ) {
+  console.log($( event.currentTarget ).closest( "li" ).children('span'));
+  $( event.currentTarget ).closest( "li" ).children('span').toggleClass( ".shopping-item__checked" );
 });
+
+
 
 /* pseudocode for shopping list
 user inputs item in form:
