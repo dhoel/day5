@@ -14,7 +14,7 @@ function addItem(item) {
 function toggle(index) {
   var target = '#' + index
    state.items[index].checked = true;
-   $(target).toggleClass( ".shopping-item__checked" );
+   $(target).toggleClass( "shopping-item__checked" );
    //console.log(state);
 };
 
