@@ -1,37 +1,69 @@
 // shopping-list object
 var state = {
-  items: []
+  items: [
+    { label: 'apples', checked: false}
+  ]
 };
 
 // list modification functions
-var addItem = function(state, item) {
-  state.items.push(item);
+function addItem(item) {
+  state.items.push({label: item, checked: false});
+ // console.log(state);
+
 };
 
+
+
 // Render functions
-var renderList = function(state, element) {
-  var itemsHTML = state.items.map(function(item) {
-    return '<li>' + item + '</li>';
+function renderList(state, element) {
+  var itemsHTML = state.items.map(function(item, index) {
+    return `
+      <li id="${index}">
+        <span class="shopping-item">${ item.label }</span>
+        <div class="shopping-item-controls">
+          <button class="shopping-item-toggle">
+            <span class="button-label">check</span>
+          </button>
+          <button class="shopping-item-delete">
+            <span class="button-label">delete</span>
+          </button>
+        </div>
+      </li>
+    `;
+
+
+    //return '<li>' + item + '</li>';
   });
+  console.log(itemsHTML);
   element.html(itemsHTML);
 }
 
 // Event Listeners
 $('#js-shopping-list-form').submit(function(event) {
   event.preventDefault();
-  addItem(state, $('#shopping-list-entry').val());
-  //renderList(state, $('.shopping-list'));
+  var newItem = $('#shopping-list-entry').val();
+ // console.log(newItem);
+  addItem(newItem);
+  renderList(state, $('.shopping-list'));
 });
 
 // $('.shopping-item-toggle').closest('div').on('click',  )
 
-//console.log(state);
+
 
 $( '.shopping-item-toggle' ).on( "click",  function( event ) {
   console.log($( event.currentTarget ).closest( "li" ).children('span'));
-  $( event.currentTarget ).closest( "li" ).children('span').toggleClass( ".shopping-item__checked" );
+  var toggleCheck = $( event.currentTarget ).closest( "li" ).children('span').text();
+  console.log('check');
+  // call toggleItem function (label);
+  // renderList();
+
+  //.toggleClass( ".shopping-item__checked" );
 });
 
+$(function(){
+  renderList(state, $('.shopping-list'));
+});
 
 
 /* pseudocode for shopping list
