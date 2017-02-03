@@ -9,8 +9,16 @@ var state = {
 function addItem(item) {
   state.items.push({label: item, checked: false});
  // console.log(state);
-
 };
+
+function toggle(index) {
+  var target = '#' + index
+   state.items[index].checked = true;
+   $(target).toggleClass( ".shopping-item__checked" );
+   //console.log(state);
+};
+
+
 
 
 
@@ -32,9 +40,8 @@ function renderList(state, element) {
     `;
 
 
-    //return '<li>' + item + '</li>';
   });
-  console.log(itemsHTML);
+  //console.log(itemsHTML);
   element.html(itemsHTML);
 }
 
@@ -47,18 +54,17 @@ $('#js-shopping-list-form').submit(function(event) {
   renderList(state, $('.shopping-list'));
 });
 
-// $('.shopping-item-toggle').closest('div').on('click',  )
 
+$( '.shopping-list' ).on( "click",  '.shopping-item-toggle', function( event ) {
+  var toggleCheck = $( event.currentTarget ).closest( "li" ).attr('id');
+  console.log(toggleCheck);
+  toggle(toggleCheck);
 
+});
 
-$( '.shopping-item-toggle' ).on( "click",  function( event ) {
-  console.log($( event.currentTarget ).closest( "li" ).children('span'));
-  var toggleCheck = $( event.currentTarget ).closest( "li" ).children('span').text();
-  console.log('check');
-  // call toggleItem function (label);
-  // renderList();
-
-  //.toggleClass( ".shopping-item__checked" );
+$('.shopping-list').on('click', '.shopping-item-delete', function(event) {
+  var deleteCheck = $(event.currentTarget).closest('li').attr('id');
+  //console.log(deleteCheck);
 });
 
 $(function(){
