@@ -70,7 +70,7 @@ $('#js-shopping-list-form').submit(function(event) {
   //Check button Listener
 $( '.shopping-list' ).on( "click",  '.shopping-item-toggle', function( event ) {
   var itemIndex = $( event.currentTarget ).closest( "li" ).attr('id');
-  console.log(itemIndex);
+  //console.log(itemIndex);
   toggle(itemIndex);
 });
 
@@ -81,6 +81,7 @@ $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
   renderList(state, $('.shopping-list'));
 });
 
+  //for testing - render the list when the page loads
 // $(function(){
 //   renderList(state, $('.shopping-list'));
 // });
