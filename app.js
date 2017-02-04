@@ -18,7 +18,6 @@ function toggle(index) {
      state.items[index].checked = true;
    } else { state.items[index].checked = false;
      }
-   //console.log(state);
    $(target).toggleClass( "shopping-item__checked" );
    //console.log(state);
 }
