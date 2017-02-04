@@ -1,28 +1,35 @@
 // shopping-list object
 var state = {
-  items: [
-    { label: 'apples', checked: false}
-  ]
+  items: []
 };
 
 // list modification functions
+
+  //Add item function
 function addItem(item) {
   state.items.push({label: item, checked: false});
  // console.log(state);
-};
+}
 
+  //Check item toggle function
 function toggle(index) {
   var target = '#' + index
-   state.items[index].checked = true;
+   if (!state.items[index].checked) {
+     state.items[index].checked = true;
+   } else { state.items[index].checked = false;
+     }
+   //console.log(state);
    $(target).toggleClass( "shopping-item__checked" );
    //console.log(state);
-};
+}
+
+  //Delete item functions
+function deleteItem(index) {
+  state.items.splice(index, 1);
+}
 
 
-
-
-
-// Render functions
+// Render function
 function renderList(state, element) {
   var itemsHTML = state.items.map(function(item, index) {
     return `
@@ -38,14 +45,21 @@ function renderList(state, element) {
         </div>
       </li>
     `;
-
-
-  });
-  //console.log(itemsHTML);
+});
   element.html(itemsHTML);
+
+  for (var i = 0; i < state.items.length; i++) {
+    if (state.items[i].checked) {
+      var target = '#' + i;
+      $(target).toggleClass( "shopping-item__checked" );
+    }
+  }
+
 }
 
 // Event Listeners
+
+  //Submit button listener
 $('#js-shopping-list-form').submit(function(event) {
   event.preventDefault();
   var newItem = $('#shopping-list-entry').val();
@@ -54,22 +68,23 @@ $('#js-shopping-list-form').submit(function(event) {
   renderList(state, $('.shopping-list'));
 });
 
-
+  //Check button Listener
 $( '.shopping-list' ).on( "click",  '.shopping-item-toggle', function( event ) {
-  var toggleCheck = $( event.currentTarget ).closest( "li" ).attr('id');
-  console.log(toggleCheck);
-  toggle(toggleCheck);
-
+  var itemIndex = $( event.currentTarget ).closest( "li" ).attr('id');
+  console.log(itemIndex);
+  toggle(itemIndex);
 });
 
+  //Delete button listener
 $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
-  var deleteCheck = $(event.currentTarget).closest('li').attr('id');
-  //console.log(deleteCheck);
-});
-
-$(function(){
+  var itemIndex = $(event.currentTarget).closest('li').attr('id');
+  deleteItem(itemIndex);
   renderList(state, $('.shopping-list'));
 });
+
+// $(function(){
+//   renderList(state, $('.shopping-list'));
+// });
 
 
 /* pseudocode for shopping list
